@@ -3,14 +3,12 @@
   <head>
     <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
-    <py-env>
-      -paths:
-        - /card.py
-        - /deck.py
-        - /player.py
-    </py-env>
   </head>
   <body>
+    <py-config>
+      [[fetch]]
+      files = ["card.py", "deck.py", "player.py"]
+    </py-config>
     <py-script src="Main_SnapGame.py"></py-script>
   </body>
 </html>
