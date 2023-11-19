@@ -1,1 +1,1 @@
-packages = ["https://github.com/DornLU/SnapGame_CertIV/blob/testing/card.py", "https://github.com/DornLU/SnapGame_CertIV/blob/testing/deck.py", "https://github.com/DornLU/SnapGame_CertIV/blob/testing/player.py",]
+packages = ["https://github.com/DornLU/SnapGame_CertIV/blob/testing/card.py", "https://github.com/DornLU/SnapGame_CertIV/blob/testing/deck.py", "https://github.com/DornLU/SnapGame_CertIV/blob/testing/player.py", "https://github.com/DornLU/SnapGame_CertIV/blob/testing/main.py",]
