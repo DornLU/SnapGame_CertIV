@@ -5,9 +5,10 @@
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
   </head>
   <body>
-    <py-script src="card.py"></py-script>
-    <py-script src="deck.py"></py-script>
-    <py-script src="player.py"></py-script>
+    <py-config>
+      [[fetch]]
+      files = ["card.py", "deck.py", "player.py"]
+    </py-config>
     <py-script src="Main_SnapGame.py"></py-script>
   </body>
 </html>
