@@ -6,8 +6,10 @@
     
   </head>
   <body>
-    <py-config type="toml">
-      paths = [card.py, deck.py, player.py]
+    <py-config>
+      [[fetch]]
+      from = "https://github.com/DornLU/SnapGame_CertIV/blob/testing"
+      files = ["card.py", "deck.py", "player.py"]
     </py-config>
     <py-script src="./main.py"></py-script>
   </body>
