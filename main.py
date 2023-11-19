@@ -1,5 +1,5 @@
-from deck import Deck
-from player import Player
+import deck as Deck
+import player as Player
 import time
 import random
 
