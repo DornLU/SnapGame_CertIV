@@ -2,8 +2,21 @@ from deck import Deck
 from player import Player
 import time
 import random
+import pygame
+from pygame.locals import *
 
-def game():
+pygame.init()
+WIDTH = 800
+HEIGHT = 600
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+FONT = pygame.font.SysFont(None, 24)
+SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
+
+textList = []
+
+def game(event):
     # Setting up the game
     # Instantiates deck
     deck = Deck()
@@ -19,15 +32,23 @@ def game():
         try:
             playerCount = int(input("How many players? (2-8 allowed): "))
         except:
-            print("Not a valid number. Please input a number between 2 and 8.")
+            textList.append(FONT.render("Not a valid number. Please input a number between 2 and 8."))
             continue
         if playerCount > 8:
-            print ("Too many players. Please input a number between 2 and 8.")
+            textList.append(FONT.render("Too many players. Please input a number between 2 and 8."))
         elif playerCount < 2:
-            print ("Not enough players. Please input a number between 2 and 8.")
+            textList.append(FONT.render("Not enough players. Please input a number between 2 and 8."))
     # Take inputs of player's names for as many players in playerCount.
     for i in range(playerCount):
-        playerName = input("Enter player {}'s name: ".format(i+1))
+        while event.key != K_RETURN:
+            playerName = ""
+            textList.append(FONT.render("Enter player {}'s name: ".format(i+1)))
+            if event.type == KEYDOWN:
+                textList[len(textList)-1] += event.unicode
+                playerName += event.unicode
+            for x in range(len(textList)):
+                SCREEN.blit(textList[x], (0,x))
+        # playerName = input("Enter player {}'s name: ".format(i+1))
         players.append(Player(playerName))
     # Deal equal number of cards to players
     deck.deal(players)
@@ -93,4 +114,34 @@ def game():
     # if playAgain == "n":
         # Add field
 
-game()
+def main():
+    # pygame.init()
+
+    
+    clock = pygame.time.Clock()
+
+    running = True
+    
+    img = FONT.render('Hello', True, WHITE)
+    img = FONT.render('bitch', True, WHITE)
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+            for x in range(len(textList)):
+                SCREEN.blit(textList[x], (0,x))
+
+            pygame.display.update()
+
+    pygame.display.flip()
+
+    clock.tick(60)
+    pygame.quit()
+
+if __name__=="__main__":
+    main()
+
+
+# game()
