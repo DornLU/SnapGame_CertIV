@@ -2,7 +2,7 @@
  
 ## Installation
 
-1. ![Download zip](https://github.com/DornLU/SnapGame_CertIV/archive/refs/heads/main.zip) and extract.
+1. [Download zip](https://github.com/DornLU/SnapGame_CertIV/archive/refs/heads/main.zip) and extract.
 2. Open SnapGame
 
 ## How To Play
