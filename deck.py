@@ -9,6 +9,7 @@ class Deck():
                      "8", "9", "10", "Jack", "Queen", "King"]
         self.suit = ["Clubs", "Spades", "Hearts", "Diamonds"]
     
+
     def getDeck(self):
         """Gets the data of the cards currently in the deck.
         
@@ -17,6 +18,7 @@ class Deck():
         """
         return self.cards
     
+
     def create(self):
         """Creates a deck by looping through each suit within a loop of each rank.
         The current loop iteration for each is combined to form the card.
@@ -27,14 +29,17 @@ class Deck():
                 value = self.rank.index(rank) + 1 # ace at index 0, + 1 to get value 1
                 self.cards.append(Card(rank, value, suit))
 
+
     def display(self):
         """Displays information of all cards in the deck in plain English."""
         for x in range(len(self.cards)):
             print(self.cards[x].describeCard())
 
+
     def shuffle(self):
         """Shuffles the list of cards."""
         random.shuffle(self.cards)
+
 
     def deal(self, players): # where players is a list
         """Repeats through each player, giving them a card until there are either no cards left to give,
