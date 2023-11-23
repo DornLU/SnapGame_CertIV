@@ -2,8 +2,64 @@ from deck import Deck
 from player import Player
 import time
 import random
+from tkinter import *
+from threading import *
+
+window = Tk()
+window.geometry("200x100")
+
+playerCount = 0
+newPlayerCount = StringVar()
+
+myList = Listbox()
+
+
+def gameStart():
+    global myList
+    gamewindow = Tk()
+    gamewindow.geometry("400x300")
+
+    scrollbar = Scrollbar(gamewindow)
+    scrollbar.pack(side=RIGHT, fill=Y)
+    myList = Listbox(gamewindow, height=400, width=300, yscrollcommand=scrollbar.set, )
+    myList.pack(side=LEFT, fill=BOTH)
+
+    t1=Thread(target=game)
+    t1.start()
+    
+    gamewindow.mainloop()
+
+
+startButton = Button(window,text="Start Game", command = gameStart)
+
+
+def getPlayerCount():
+    global playerCount
+    try:
+        playerCount = int(newPlayerCount.get())
+        startButton.pack() # Generate start button only on valid entry
+    except:
+        Message(text="ERROR: Not a number. Enter a whole number between 2 and 8.")
+        startButton.pack_forget()
+    if (playerCount <2):
+        Message(text="ERROR: Too low. Enter a whole number between 2 and 8.")
+        playerCount = 0
+        startButton.pack_forget()
+    if (playerCount >8):
+        Message(text="ERROR: Too high. Enter a whole number between 2 and 8.")
+        playerCount = 0
+        startButton.pack_forget()
+
+    
+Label(text="How many players? (2-8)").pack()
+playerCountEntry = Entry(window, textvariable=newPlayerCount)
+playerCountEntry.pack()
+Button(text="Confirm",command=getPlayerCount).pack()
+
 
 def game():
+    global playerCount
+    global myList
     # Setting up the game
     # Instantiates deck
     deck = Deck()
@@ -13,22 +69,9 @@ def game():
     deck.shuffle()
     # Create an empty list of players
     players = []
-    # Take input of how many players are playing. Min is 2 and max is 8 players
-    playerCount = 0
-    while playerCount < 2 or playerCount > 8:
-        try:
-            playerCount = int(input("How many players? (2-8 allowed): "))
-        except:
-            print("Not a valid number. Please input a number between 2 and 8.")
-            continue
-        if playerCount > 8:
-            print ("Too many players. Please input a number between 2 and 8.")
-        elif playerCount < 2:
-            print ("Not enough players. Please input a number between 2 and 8.")
-    # Take inputs of player's names for as many players in playerCount.
+    # Generate player names and classes
     for i in range(playerCount):
-        playerName = input("Enter player {}'s name: ".format(i+1))
-        players.append(Player(playerName))
+        players.append(Player("Player {}".format(i+1)))
     # Deal equal number of cards to players
     deck.deal(players)
 
@@ -59,7 +102,9 @@ def game():
             # Player can only take their turn if they have not been eliminated
             if player.outOfPlay == False: 
                 # Current player plays a card
-                player.playCard(deck)
+                myList.insert(END, player.playCard(deck))
+                myList.see(END)
+                # Label(text=player.playCard(deck)).pack()
                 # Prevents trying to compare against empty deck, like after a snap.        
                 if len(deck.cards) > 1:
                 # If played card rank matches the rank of the top card on the deck
@@ -80,17 +125,23 @@ def game():
                         playerSnapped_Tuple = playerRolls[0]
                         # Snap adds all cards from deck to player hand and shuffles
                         playerSnapped = playerSnapped_Tuple[0]
-                        playerSnapped.snap(deck)
+                        
+                        myList.insert(END, playerSnapped.snap(deck))
+                        myList.see(END)
+                        
                 # Check if player is out of cards, set lose state to true
                 if len(player.cards) == 0:
                     player.outOfPlay = True
             # added delay time to make the game run smoother.
-            time.sleep(2)
+            time.sleep(.5)
             
-    print("Game over")
-    print(winner.name, "is the winner!")
+    myList.insert(END, "Game over")
+    myList.see(END)
+    myList.insert(END, (winner.name + " is the winner!"))
+    myList.see(END)
     # playAgain = input("Would you like to play again? y/n: ").lower
     # if playAgain == "n":
         # Add field
 
-game()
+
+window.mainloop()

@@ -10,9 +10,21 @@ class Card:
         self.value = value
         self.suit = suit
     
+
+    def describeCardGame(self):
+        """Displays the information of a given card in plain English.
+        
+        Returns:
+            outstring (string): Feeds into Tkinter label text to display in GUI.
+        """
+        outstring = ("{} of {}, value: {}".format(self.rank, self.suit, self.value))
+        return outstring
+    
+    
     def describeCard(self):
         """Displays the information of a given card in plain English."""
-        print(self.rank, "of", self.suit, ", value:", self.value)
+        print("{} of {}, value: {}".format(self.rank, self.suit, self.value))
+        
 
     
 
